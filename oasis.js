@@ -4,16 +4,6 @@
   XPath expression.
 */
 
-if(document.URL.match("courses.aspx")) {  
-
-   var sel = document.getElementById('ddColumns');
-   
-   for(var opt of sel.childNodes) {
-  //    console.log("opt: " + opt.value);
-      opt.textContent = opt.textContent + " DTL";
-      opt.selected = true;
-   }
-} else {
    var node = document.getElementById('ctl00_studentbar_studentId');
    if(!node)
       node = document.getElementById('ctl00_ctl00_studentbar_studentId');
@@ -31,6 +21,20 @@ if(document.URL.match("courses.aspx")) {
    a.href = "https://gradhub.ucdavis.edu/student/" + sid;
    node.innerHTML = "";
    node.prepend(a); // appendChild(a);
+
+
+
+if(document.URL.match("courses.aspx")) {  
+
+   var sel = document.getElementById('ddColumns');
+   
+   for(var opt of sel.children) {
+  //    console.log("opt: " + opt.value);
+      opt.textContent = opt.textContent + " DTL";
+      opt.selected = true;
+   }
+} else {
+
 } 
 
 
