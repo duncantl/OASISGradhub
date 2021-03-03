@@ -11,12 +11,13 @@
    if(!node) 
       document.body.innerHTML = "Failed to get studentID node";
 
+ // The SID may have additional information such as directory confidential, etc.
+ // So we get the SID as the first text node.
+ // Then we take the entire contents of node and put them into the body of a <a> node
 
    var tmp = node.childNodes[0];
    var sid = tmp.textContent;  // node.innerHTML;
-//   tmp.remove();   
    var a = document.createElement('a');
-//   a.textContent = sid;
    a.innerHTML = node.innerHTML;  // textContent = sid;
    a.href = "https://gradhub.ucdavis.edu/student/" + sid;
    node.innerHTML = "";
@@ -24,18 +25,16 @@
 
 
 
+// For the Academic Record page, select all the Columns by default.
+
 if(document.URL.match("courses.aspx")) {  
 
    var sel = document.getElementById('ddColumns');
    
    for(var opt of sel.children) {
-  //    console.log("opt: " + opt.value);
-      opt.textContent = opt.textContent + " DTL";
+      opt.textContent = opt.textContent;
       opt.selected = true;
    }
-} else {
-
-} 
-
+}
 
 

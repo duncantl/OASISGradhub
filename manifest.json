@@ -8,7 +8,7 @@
 
 	"content_scripts": [
 	   {
-	      "matches": ["https://students.ucdavis.edu/student/*", "https://oasis.ucdavis.edu/student/*"],
+	      "matches": ["https://students.ucdavis.edu/student/*", "https://oasis.ucdavis.edu/student/*", "https://oasis.ucdavis.edu/*"],
 	      "js":  ["oasis.js"]
 //	      "run_at": "document_load"	      
            }
