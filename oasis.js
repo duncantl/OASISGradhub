@@ -8,8 +8,8 @@
    if(!node)
       node = document.getElementById('ctl00_ctl00_studentbar_studentId');
 
-   if(!node) 
-      document.body.innerHTML = "Failed to get studentID node";
+//   if(!node) 
+//      document.body.innerHTML = "Failed to get studentID node";
 
  // The SID may have additional information such as directory confidential, etc.
  // So we get the SID as the first text node.
@@ -32,7 +32,7 @@ if(document.URL.match("courses.aspx")) {
    var sel = document.getElementById('ddColumns');
    
    for(var opt of sel.children) {
-      opt.textContent = opt.textContent;
+      opt.textContent = opt.textContent + " xxx";
       opt.selected = true;
    }
 }

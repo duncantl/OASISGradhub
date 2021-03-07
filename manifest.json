@@ -8,9 +8,16 @@
 
 	"content_scripts": [
 	   {
-	      "matches": ["https://students.ucdavis.edu/student/*", "https://oasis.ucdavis.edu/student/*", "https://oasis.ucdavis.edu/*"],
+	      "matches": ["https://students.ucdavis.edu/student/*", "https://oasis.ucdavis.edu/student/*"], // , "https://oasis.ucdavis.edu/*"],
 	      "js":  ["oasis.js"]
 //	      "run_at": "document_load"	      
            }
-	]
+	],
+
+	"browser_specific_settings": {
+	  "gecko": {
+	      "id": "oasisgh@gs.ucdavis.edu"
+//              "update_url": "https://www.stat.ucdavis.edu/~duncan/FirefoxExtensions/oasisgradhub.json"
+           }
+	}
 }
