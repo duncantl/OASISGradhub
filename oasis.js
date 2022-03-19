@@ -38,25 +38,43 @@ function sisr()
 }
 */
 
+
+/*
+   Called from a click on a course title in the Academic Record page.
+   We get the term, course code and number and submit that to a form
+   that we also injected into the page when we loaded it.
+*/
 function sisr(ev)
 {
-    var form = document.forms['myform'];
+
+    var klass = ev.target.getAttribute('class');    
+    var form = document.forms['sisrForm'];
     
-    var tr = ev.target.parentNode.parentNode;
+    var tr = ev.target.parentNode;
+    if(klass != 'column-crn')
+	tr = tr.parentNode;
 
     var qtr = tr.children[2].children[0];
-    console.log(qtr);
+    console.log("quarter: " + qtr);
     form.elements['termCode'].value = qtr.innerHTML; 
 
-    var ti = ev.target.title;
-    var subj = ti.replace(/ .*/, ''); 
-    var rx2 = /^[A-Z]+ ([0-9]+[A-Z]?) .*/;
-    var num = rx2.exec(ti);
-    console.log("subj: " + subj + " num " + num[1]);	     
-    form.elements['subjCode'].value = subj;
-    form.elements['course'].value = num[1];
 
-    console.log(form);
+    console.log("class of target: " + klass);
+    if(klass == 'column-crn') {
+	console.log("CRN: " + ev.target.innerHTML.trim());	
+	form.elements['CRNumb'].value = ev.target.innerHTML.trim();
+    } else {
+    
+	var ti = ev.target.title;
+	var subj = ti.replace(/ .*/, ''); 
+	var rx2 = /^[A-Z]+ ([0-9]+[A-Z]?) .*/;
+	var num = rx2.exec(ti);
+//    console.log("subj: " + subj + " num " + num[1]);	     
+	form.elements['subjCode'].value = subj;
+	form.elements['course'].value = num[1];
+    }
+    
+//    console.log(form);
     form.submit();
 }
 
@@ -64,7 +82,7 @@ function sisr(ev)
 
 if(document.URL.match("courses.aspx")) {  
 
-console.log("URL: "+document.URL);
+//console.log("URL: "+document.URL);
     
    var sel = document.getElementById('ddColumns');
    
@@ -77,6 +95,10 @@ console.log("URL: "+document.URL);
     // POST	https://sisr.ucdavis.edu/secure/reporting/reports/Report.cfm?reportName=StudentClassRoster
     //    SortOrder=&SortDirection=&termCode=202010&subjCode=ANT&course=210&section=&CRNumb=&RegistrationStatus=AllReg&RegistrationStatus=WL&format=screen
 
+
+    /*
+        Add a click event handler for each Course cell in the table.
+    */
     var courses = document.getElementsByClassName("CourseName");
     console.log("got courses");
     for(var k of courses) {
@@ -84,23 +106,28 @@ console.log("URL: "+document.URL);
 	console.log("added link for " + k.innerHTML);
     }
 
+    var crn = document.getElementsByClassName("column-crn");
+    for(var k of crn) {
+	k.addEventListener("click", sisr);	
+    }    
+
+
+    
 
 /*
-var formString = '<form name="myform" method="post" action="https://sisr.ucdavis.edu/secure/reporting/reports/Report.cfm?reportName=StudentClassRoster"  target="_blank">
-<input type="hidden" name="termCode" value="">
-<input type="hidden" name="subjCode" value="">
-<input type="hidden" name="course" value="">
-</form>';
+    Build a form that we will use when a person clicks on a course title in the Academic Record page.
+    The form will POST to SISR  with the body containing the three variables termCode, subjCode and course.
+    The SISR page will open in another window.
 */
     var div = document.createElement('div');
     var f = document.createElement('FORM');
-    f.name = 'myform';
+    f.name = 'sisrForm';
     f.method = 'POST';
     f.action = "https://sisr.ucdavis.edu/secure/reporting/reports/Report.cfm?reportName=StudentClassRoster" ;
     f.target="_blank";
 
 
-    for(var v of ['termCode', 'subjCode', 'course']) {
+    for(var v of ['termCode', 'subjCode', 'course', 'CRNumb']) {
 	var el = document.createElement('INPUT');
 	el.type = "HIDDEN";
 	el.name = v;
@@ -111,7 +138,6 @@ var formString = '<form name="myform" method="post" action="https://sisr.ucdavis
     
     div.appendChild(f);
     document.body.appendChild(div);
-
 }
 
 

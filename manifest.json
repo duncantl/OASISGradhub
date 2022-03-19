@@ -4,7 +4,7 @@
 	"name": "OASISGradhub",
 //	"short_name": "OASISGradhub",
 //	"description": "Add a link to an OASIS page to the student's gradhub page",
-	"version": "0.2",
+	"version": "0.3",
 
 	"content_scripts": [
 	   {
