@@ -1,0 +1,22 @@
+{
+	"manifest_version": 2,
+
+	"name": "SISROASIS",
+	"description": "Add a link to each line in a SISR roster to jump to the student's OASIS page",
+	"version": "0.3",
+
+	"content_scripts": [
+	   {
+	      "matches": [ "https://sisr.ucdavis.edu/secure/reporting/reports/Report.cfm?reportName=StudentClassRoster"], 
+	      "js":  ["sisr.js"]
+//	      "run_at": "document_load"	      
+           }
+	],
+
+	"browser_specific_settings": {
+	  "gecko": {
+	      "id": "oasisgh@gs.ucdavis.edu"
+//              "update_url": "https://www.stat.ucdavis.edu/~duncan/FirefoxExtensions/oasisgradhub.json"
+           }
+	}
+}
